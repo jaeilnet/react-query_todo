@@ -1,0 +1,51 @@
+{
+  "todo": [
+    {
+      "id": 1,
+      "contents": "밥먹기",
+      "status": true
+    },
+    {
+      "id": 2,
+      "contents": "밥 또 먹기",
+      "status": true
+    },
+    {
+      "id": 3,
+      "contents": "밥 또 또먹기",
+      "status": false
+    },
+    {
+      "id": 4,
+      "contents": "밥 또 또 또 먹기",
+      "status": false
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "userId": "tokensnsnsn",
+      "password": "123123"
+    },
+    {
+      "userId": "front@naver.com",
+      "password": "123123a!",
+      "id": 2
+    },
+    {
+      "userId": "front@naver.com",
+      "password": "123123a!",
+      "id": 3
+    },
+    {
+      "userId": "front@naver.com",
+      "password": "123123a!",
+      "id": 4
+    },
+    {
+      "userId": "front@naver.com",
+      "password": "123123a!",
+      "id": 5
+    }
+  ]
+}
