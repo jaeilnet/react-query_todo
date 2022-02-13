@@ -1,25 +1,20 @@
-import React, { ChangeEvent, useEffect } from "react"
+import React, { ChangeEvent, useContext } from "react"
 import {
   Button,
   Grid,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
   TextField,
 } from "@mui/material"
-import confirm from "antd/lib/modal/confirm"
 import { EditText } from "../type"
+import { todoContext } from "../context/todoContext"
+import confirm from "antd/lib/modal/confirm"
 
 interface TodoListProps {}
 
 const TodoList: React.FC<TodoListProps> = () => {
-  // const { todoList, deleteTodoMutation, patchTodoMutation, isLoadingRender } =
-  //   useTodo()
-
-  // 리스트 불러오기
-
-  // console.log(todoList)
+  const todoCtx = useContext(todoContext)
 
   const showDeleteConfirm = (todoId: number): void => {
     // 삭제 api
@@ -31,7 +26,7 @@ const TodoList: React.FC<TodoListProps> = () => {
       okType: "danger",
       cancelText: "아니요",
       onOk() {
-        // deleteTodoMutation.mutate(todoId)
+        todoCtx.onDeleteTodo(todoId)
       },
       onCancel() {},
     })
@@ -89,7 +84,7 @@ const TodoList: React.FC<TodoListProps> = () => {
       okType: "primary",
       cancelText: "취소",
       onOk() {
-        // patchTodoMutation.mutate(edit)
+        todoCtx.onEditTodo(edit)
       },
       onCancel() {},
     })
@@ -97,11 +92,10 @@ const TodoList: React.FC<TodoListProps> = () => {
 
   return (
     <>
-      {/* {isLoadingRender} */}
+      {todoCtx.onLoading}
       <List>
-        <div>todoList</div>
-        {/* {todoList
-          ? todoList.map((todo: any) => (
+        {todoCtx.todoList
+          ? todoCtx.todoList.map((todo: any) => (
               <ListItem key={todo.id}>
                 <>
                   <ListItemText primary={todo.contents}></ListItemText>
@@ -124,7 +118,7 @@ const TodoList: React.FC<TodoListProps> = () => {
                 </>
               </ListItem>
             ))
-          : null} */}
+          : null}
       </List>
     </>
   )

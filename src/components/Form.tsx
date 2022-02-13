@@ -1,24 +1,16 @@
 import { Button, Grid, TextField } from "@mui/material"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
+import { todoContext } from "../context/todoContext"
 // import useTodo from "../csutom/useTodo"
-
-interface FormProps {}
 
 const Forms: React.FC = () => {
   const [todoText, setTodoText] = useState("")
-
-  // const { addTodoMutation } = useTodo()
 
   const onTodoText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodoText(e.target.value)
   }
 
-  const onAddTodo = () => {
-    if (todoText.trim().length <= 0) {
-      return alert("todo 적어주세요")
-    }
-    // addTodoMutation.mutate(todoText)
-  }
+  const todoCtx = useContext(todoContext)
 
   return (
     <Grid justifyContent="space-between" container>
@@ -31,7 +23,11 @@ const Forms: React.FC = () => {
           onChange={onTodoText}
           variant="standard"
         />
-        <Button variant="outlined" fullWidth onClick={onAddTodo}>
+        <Button
+          variant="outlined"
+          fullWidth
+          onClick={() => todoCtx.onAddTodo(todoText)}
+        >
           투두 등록
         </Button>
       </Grid>

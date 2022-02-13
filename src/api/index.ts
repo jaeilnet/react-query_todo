@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 const baseUrl = "http://localhost:4000"
 
@@ -6,44 +6,51 @@ const instance = axios.create({
   baseURL: baseUrl,
 })
 
-export const getApi = async () => {
+export const getApi = async (): Promise<AxiosResponse> => {
   return await instance.get(`${baseUrl}/todo`)
 }
 
-export const addTodoAPI = async (content: string) => {
-  return await instance.post(`${baseUrl}/todo`)
+export const addTodoAPI = async (contents: string): Promise<AxiosResponse> => {
+  return await instance.post(`${baseUrl}/todo`, {
+    contents: contents,
+    status: false,
+  })
 }
-
-export const deleteApi = async (id: number) => {
-  return await instance.delete(`${baseUrl}/todo`, {
+export const deleteAPI = async (id: number): Promise<AxiosResponse> => {
+  return await instance.delete(`${baseUrl}/todo/${id}`, {
     data: {
       id: id,
     },
   })
 }
 
-export const patchStatusApi = async (id: number) => {
+export const patchStatusApi = async (id: number): Promise<AxiosResponse> => {
   return await instance.patch(`${baseUrl}/todo`, {
     id: id,
   })
 }
 
-export const patchTextAPI = async ({ id, contents }: any) => {
-  console.log(id, contents)
-  return await instance.patch(`${baseUrl}/todo`, {
-    id,
+export const patchTextAPI = async ({
+  id,
+  contents,
+}: any): Promise<AxiosResponse> => {
+  return await instance.patch(`${baseUrl}/todo/${id}`, {
     contents,
   })
 }
 
-export const postLoginAPI = async ({ userId, password }: any) => {
+export const postLoginAPI = async ({
+  userId,
+  password,
+}: any): Promise<AxiosResponse> => {
   return await instance.post(`${baseUrl}/user`, {
     userId,
     password,
   })
 }
 
-export const loginCheckAPI = async (token: string) => {
+export const loginCheckAPI = async (token: string): Promise<AxiosResponse> => {
+  console.log(token, "loginChekc")
   return await instance.post(`${baseUrl}/user`, {
     token: token,
   })

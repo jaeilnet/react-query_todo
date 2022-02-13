@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react"
 import { createContext } from "react"
 import { useMutation } from "react-query"
-import { postLoginAPI } from "../api"
+import { loginCheckAPI, postLoginAPI } from "../api"
 
 interface AuthContextType {
   isLogin: boolean
   onSubmitLogin: (userId: string, password: string) => void
+  onLogout: () => void
 }
 
 export const loginContext = createContext({
   isLogin: false,
   onSubmitLogin: (userId: string, password: string) => {},
+  onLogout: () => {},
 })
 
 export const AuthContext: React.FC = ({ children }) => {
@@ -29,12 +31,15 @@ export const AuthContext: React.FC = ({ children }) => {
     },
   })
 
-  useEffect(() => {
-    const getToken = localStorage.getItem("isLogin")
-
-    if (getToken) {
-    }
-  }, [])
+  // 로그인 체크
+  const loginCheckMutation = useMutation(loginCheckAPI, {
+    onSuccess: (data) => {
+      setIsLogin(true)
+    },
+    onError: (err) => {
+      console.log(err, "로그인 체크에러")
+    },
+  })
 
   const onSubmitLogin = (userId: string, password: string): any => {
     loginMutation.mutate({
@@ -43,9 +48,27 @@ export const AuthContext: React.FC = ({ children }) => {
     })
   }
 
+  const onLogout = () => {
+    if (!isLogin) {
+      return
+    }
+    localStorage.removeItem("isLogin")
+
+    setIsLogin(false)
+  }
+
+  useEffect(() => {
+    const getToken = localStorage.getItem("isLogin")
+
+    if (getToken) {
+      loginCheckMutation.mutate(getToken)
+    }
+  }, [])
+
   const todoContextValue: AuthContextType = {
     isLogin: isLogin,
     onSubmitLogin: onSubmitLogin,
+    onLogout: onLogout,
   }
 
   return (

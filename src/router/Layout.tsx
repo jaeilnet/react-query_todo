@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
+import Header from "../components/Header"
 import { loginContext } from "../context/authContext"
 import Home from "../page/Home"
 import Login from "../page/Login"
@@ -44,23 +45,26 @@ const Layout: React.FC<LayoutProps> = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <PrivateRoute
-          exact
-          isLogin={logigCtx.isLogin}
-          path="/"
-          component={Home}
-        />
-        <PublicRoute
-          exact
-          isLogin={logigCtx.isLogin}
-          path="/login"
-          component={Login}
-        />
-        {/* <Route path="*" component={NotFound} /> */}
-      </Switch>
-    </BrowserRouter>
+    <>
+      <Header />
+      <BrowserRouter>
+        <Switch>
+          <PrivateRoute
+            exact
+            isLogin={logigCtx.isLogin}
+            path="/"
+            component={Home}
+          />
+          <PublicRoute
+            exact
+            isLogin={logigCtx.isLogin}
+            path="/login"
+            component={Login}
+          />
+          {/* <Route path="*" component={NotFound} /> */}
+        </Switch>
+      </BrowserRouter>
+    </>
   )
 }
 
