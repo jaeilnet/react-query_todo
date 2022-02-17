@@ -1,0 +1,19 @@
+version: "3"
+services:
+  start:
+    image: start
+    ports:
+      - "3000:3000"
+    networks:
+      - todoList
+
+  server:
+    image: server
+    ports:
+      - "4000:4000"
+    networks:
+      - todoList
+
+networks:
+  todoList:
+    driver: bridge

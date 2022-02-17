@@ -1,14 +1,14 @@
-import React, { useContext } from "react"
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
-import Header from "../components/Header"
-import { loginContext } from "../context/authContext"
-import Home from "../page/Home"
-import Login from "../page/Login"
+import React, { useContext } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import Header from "../components/Header";
+import { loginContext } from "../context/authContext";
+import Home from "../page/Home";
+import Login from "../page/Login";
 
 interface LayoutProps {}
 
 const Layout: React.FC<LayoutProps> = () => {
-  const logigCtx = useContext(loginContext)
+  const logigCtx = useContext(loginContext);
 
   const PrivateRoute: React.FC<any> = ({
     component: CustomComponent,
@@ -18,14 +18,13 @@ const Layout: React.FC<LayoutProps> = () => {
   }) => {
     const renderCustomerComponent = (props: any) => (
       <CustomComponent {...props} />
-    )
-    console.log(isLogin, "private")
+    );
     if (isLogin) {
-      return <Route {...rest} render={renderCustomerComponent} />
+      return <Route {...rest} render={renderCustomerComponent} />;
     }
 
-    return <Redirect to="login" />
-  }
+    return <Redirect to="login" />;
+  };
 
   const PublicRoute: React.FC<any> = ({
     component: CustomComponent,
@@ -33,16 +32,15 @@ const Layout: React.FC<LayoutProps> = () => {
     path,
     ...rest
   }) => {
-    console.log(isLogin, "public")
     if (!isLogin) {
       const renderCustomerComponent = (props: any) => (
         <CustomComponent {...props} />
-      )
-      return <Route {...rest} render={renderCustomerComponent} />
+      );
+      return <Route {...rest} render={renderCustomerComponent} />;
     }
 
-    return <Redirect to="/" />
-  }
+    return <Redirect to="/" />;
+  };
 
   return (
     <>
@@ -65,7 +63,7 @@ const Layout: React.FC<LayoutProps> = () => {
         </Switch>
       </BrowserRouter>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from "react"
+import React, { ChangeEvent, useContext, useState } from "react";
 import {
   Button,
   Grid,
@@ -6,15 +6,16 @@ import {
   ListItem,
   ListItemText,
   TextField,
-} from "@mui/material"
-import { EditText } from "../type"
-import { todoContext } from "../context/todoContext"
-import confirm from "antd/lib/modal/confirm"
+} from "@mui/material";
+import { EditText } from "../type";
+import { todoContext } from "../context/todoContext";
+import confirm from "antd/lib/modal/confirm";
 
 interface TodoListProps {}
 
 const TodoList: React.FC<TodoListProps> = () => {
-  const todoCtx = useContext(todoContext)
+  const todoCtx = useContext(todoContext);
+  const [open, setOpen] = useState<boolean>(false);
 
   const showDeleteConfirm = (todoId: number): void => {
     // 삭제 api
@@ -26,11 +27,11 @@ const TodoList: React.FC<TodoListProps> = () => {
       okType: "danger",
       cancelText: "아니요",
       onOk() {
-        todoCtx.onDeleteTodo(todoId)
+        todoCtx.onDeleteTodo(todoId);
       },
       onCancel() {},
-    })
-  }
+    });
+  };
 
   const showEditconfirm = (
     e: React.MouseEvent,
@@ -40,13 +41,13 @@ const TodoList: React.FC<TodoListProps> = () => {
     let edit: EditText = {
       id,
       contents,
-    }
+    };
     const onChangeEditText = (e: ChangeEvent<HTMLInputElement>): void => {
       edit = {
         id,
         contents: e.target.value,
-      }
-    }
+      };
+    };
 
     const editContent = (
       <Grid
@@ -75,7 +76,7 @@ const TodoList: React.FC<TodoListProps> = () => {
           </Checkbox> */}
         </Grid>
       </Grid>
-    )
+    );
 
     confirm({
       title: "Todo 수정",
@@ -84,11 +85,11 @@ const TodoList: React.FC<TodoListProps> = () => {
       okType: "primary",
       cancelText: "취소",
       onOk() {
-        todoCtx.onEditTodo(edit)
+        todoCtx.onEditTodo(edit);
       },
       onCancel() {},
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -121,7 +122,7 @@ const TodoList: React.FC<TodoListProps> = () => {
           : null}
       </List>
     </>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;

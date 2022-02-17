@@ -1,38 +1,37 @@
-import { Button, Grid, TextField } from "@mui/material"
-import React, { ChangeEvent, useContext, useState } from "react"
-import { loginContext } from "../context/authContext"
+import { Button, Grid, TextField } from "@mui/material";
+import React, { ChangeEvent, useContext, useState } from "react";
+import { loginContext } from "../context/authContext";
 
 export interface SignInType {
-  userId: string
-  password: string
+  userId: string;
+  password: string;
 }
 
 const Login = () => {
   const [signInfo, setSignInfo] = useState<SignInType>({
     userId: "",
     password: "",
-  })
+  });
 
-  const logigCtx = useContext(loginContext)
+  const logigCtx = useContext(loginContext);
 
   const onChangeId = (e: ChangeEvent<HTMLInputElement>): void => {
     setSignInfo({
       ...signInfo,
       userId: e.target.value,
-    })
-  }
+    });
+  };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     setSignInfo({
       ...signInfo,
       password: e.target.value,
-    })
-  }
+    });
+  };
 
   const text = () => {
-    console.log("button")
-    logigCtx.onSubmitLogin(signInfo.userId, signInfo.password)
-  }
+    logigCtx.onSubmitLogin(signInfo.userId, signInfo.password);
+  };
 
   return (
     <>
@@ -77,7 +76,7 @@ const Login = () => {
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
